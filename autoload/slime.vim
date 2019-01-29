@@ -109,7 +109,11 @@ function! s:NeovimConfig() abort
   if !exists("b:slime_config")
     let b:slime_config = {"jobid": "1"}
   end
-  let b:slime_config["jobid"] = input("jobid: ", b:slime_config["jobid"])
+  if exists("g:last_split_term")
+    let b:slime_config["jobid"] = g:last_split_term
+  else
+    let b:slime_config["jobid"] = input("jobid: ", b:slime_config["jobid"])
+  end
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
