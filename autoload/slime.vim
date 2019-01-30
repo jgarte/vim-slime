@@ -102,7 +102,8 @@ function! s:NeovimSend(config, text)
   " iPython %cpaste (input buffering: not all lines sent over)
   " So this s:WritePasteFile can help as a small lock & delay
   call s:WritePasteFile(a:text)
-  call jobsend(str2nr(a:config["jobid"]), split(a:text, "\n", 1))
+  let jobid = exists("g:last_split_term") ? g:last_split_term : a:config["jobid"]
+  call jobsend(str2nr(jobid), split(a:text, "\n", 1))
 endfunction
 
 function! s:NeovimConfig() abort
